@@ -10,6 +10,7 @@ import RNFS from 'react-native-fs';
 import {useDispatch} from 'react-redux';
 import {addFile} from '../../../redux/actions/fileActions';
 import {Button, TextInput} from 'react-native-paper';
+import {generateTimestamp} from '../../../utils/utils';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -54,8 +55,9 @@ const Home = () => {
 
   const uploadFile = async () => {
     if (file && file.name) {
+      const timestamp = generateTimestamp();
       const extension = file.name.split('.').pop();
-      const destPath = `${RNFS.DocumentDirectoryPath}/${newFileName}.${extension}`;
+      const destPath = `${RNFS.DocumentDirectoryPath}/${timestamp}_${newFileName}.${extension}`;
       if (uploader === '') {
         Alert.alert('Error', 'Please enter uploader name');
         return;
